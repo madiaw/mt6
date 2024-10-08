@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}Liste des articles{% endblock %}
+
+{% block content %}
+<h1>Liste des articles</h1>
+
+<a href="{% url 'ajouter_article' %}" class="btn btn-primary mb-3">Ajouter un article</a>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Nom</th>
+            <th>Description</th>
+            <th>Quantité</th>
+            <th>Dernière révision</th>
+            <th>Période de révision (jours)</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for article in articles %}
+            <tr>
+                <td>{{ article.nom }}</td>
+                <td>{{ article.description }}</td>
+                <td>{{ article.quantite }}</td>
+                <td>{{ article.date_derniere_revision|default_if_none:"Jamais" }}</td>
+                <td>{{ article.periode_revision }}</td>
+            </tr>
+        {% empty %}
+            <tr>
+                <td colspan="5">Aucun article trouvé</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

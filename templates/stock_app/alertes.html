@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}Alertes de révision{% endblock %}
+
+{% block content %}
+<h1>Alertes de révision</h1>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Article</th>
+            <th>Date d'alerte</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for alerte in alertes %}
+            <tr>
+                <td>{{ alerte.article.nom }}</td>
+                <td>{{ alerte.date_alerte }}</td>
+                <td>
+                    <a href="{% url 'traiter_alerte' alerte.id %}" class="btn btn-sm btn-warning">Traiter</a>
+                </td>
+            </tr>
+        {% empty %}
+            <tr>
+                <td colspan="3">Aucune alerte en cours</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}Tableau de bord{% endblock %}
+
+{% block content %}
+<h1>Tableau de bord</h1>
+
+<div class="row">
+    <div class="col-md-6">
+        <h2>Articles en stock</h2>
+        <ul class="list-group">
+            {% for article in articles %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    {{ article.nom }}
+                    <span class="badge bg-primary rounded-pill">{{ article.quantite }}</span>
+                </li>
+            {% empty %}
+                <li class="list-group-item">Aucun article en stock</li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="col-md-6">
+        <h2>Alertes de révision</h2>
+        <ul class="list-group">
+            {% for alerte in alertes %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    {{ alerte.article.nom }}
+                    <a href="{% url 'traiter_alerte' alerte.id %}" class="btn btn-sm btn-warning">Traiter</a>
+                </li>
+            {% empty %}
+                <li class="list-group-item">Aucune alerte en cours</li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endblock %}
